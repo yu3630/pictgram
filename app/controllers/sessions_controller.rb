@@ -3,11 +3,11 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = User.find_by(email: paramsl[:session][:email])
-    if user && user.authenticate(pamams[:session][:password])
+    user = User.find_by(email: params[:session][:email])
+    if user && user.authenticate(params[:session][:password])
       log_in user
       redirect_to root_path, success: 'ログインに成功しました'
-    eles
+    else
       flash.now[:danger] = 'ログインに失敗しました'
       render :new
     end
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   end
   
   def log_out
-    session.dalete(:user_id)
+    session.delete(:user_id)
     @current_user = nil
   end
   
